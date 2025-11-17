@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Owner - Orders</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>All Orders</h1>
+
+<div id="ordersBox"></div>
+
+<script>
+    let allOrders = JSON.parse(localStorage.getItem("allOrders")) || [];
+
+    let html = "";
+
+    allOrders.forEach((order, index) => {
+        html += `
+            <div class="menu-item">
+                <div>
+                    <strong>Order ${index + 1}</strong><br>
+                    Name: ${order.name}<br>
+                    Class: ${order.className || 'Not provided'}<br>
+                    Items:<br>
+        `;
+        order.items.forEach(item => {
+            html += ` - ${item.item} (₹${item.cost})<br>`;
+        });
+
+        html += `
+                    <strong>Total: ₹${order.total}</strong><br>
+                    <small>Time: ${order.time}</small>
+                </div>
+            </div>
+        `;
+    });
+
+    document.getElementById("ordersBox").innerHTML = html;
+</script>
+
+</body>
+</html>
